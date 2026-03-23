@@ -1,24 +1,34 @@
 import './App.css'
 import Header from './components/Header'
 import Hero from './components/Hero'
+import Card from './components/Card'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ProtectedRoutes from './components/ProtectedRoutes';
+import Login from './components/Login';
+
 
 function App() {
 
   return (
 
+    <BrowserRouter>
 
-    <div className='h-screen bg-grad'>
+      <Routes>
+        <Route path='/login' element={<Login />
+        } />
 
 
-      <div>
-        <Header />
-      </div>
+        <Route path='/hero' element={
+          <ProtectedRoutes>
+            <Hero />
+          </ProtectedRoutes>
+        } />
 
-      <div className=' mt-6'>
-        <Hero />
-      </div>
+        <Route path="*" element={<Navigate to="/login" />} />
 
-    </div>
+      </Routes>
+    </BrowserRouter>
+
 
   )
 }

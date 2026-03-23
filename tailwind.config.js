@@ -10,6 +10,7 @@ export default {
       },
       fontFamily: {
         comfortaa: ['Comfortaa', 'sans-serif'],
+        head:['Iosevka Charon', 'monospace'],
       },
     },
   },

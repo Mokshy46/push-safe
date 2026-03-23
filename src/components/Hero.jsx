@@ -4,16 +4,16 @@ const Hero = () => {
   return (
 
 
-    <div className=" flex m-5 relative justify-center min-h-[calc(100vh-88px)]">
+    <div className=" flex  relative justify-center min-h-[calc(100vh-88px)]">
       <div className=" flex-1">
-        <img src={illus2} alt="" className=' w-[290px] h-auto absolute top-0 left-0' />
+        <img src={illus2} alt="" className=' w-[290px] h-auto absolute top-0 left-5' />
       </div>
 
 
 
       <div className=" flex-1 flex text-center items-center justify-center ">
-        <h2 className=' text-6xl font-comfortaa font-extrabold m-3 '>
-          Make everyone on your team a developer
+        <h2 className=' text-6xl text-gray-900 font-head font-extrabold m-3 '>
+          Make everyone <br />on your team a developer
         </h2>
       </div>
 
