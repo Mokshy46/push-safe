@@ -1,42 +1,58 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
 
-function Card() {
-
-  const [boards, setBoards] = useState([]);
+const Card = () => {
+  const [board, setBoard] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
 
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzc0MjA3NDgyLCJpYXQiOjE3NzQyMDY1ODIsImp0aSI6IjZiMGFiZTJmMjM4MzQ2NWViZThhNGQzNzYzNmY4MzQ4IiwidXNlcl9pZCI6IjMifQ.xwnq3JTh0Y2w64UIfH92VhTCn3eBHVfRTIpDSDjqYvg";
+    const accessToken = localStorage.getItem("access_token");
 
-    const fetchBoards = async () => {
-
-      try {
-        const res = await fetch("http://127.0.0.1:8000/api/lists/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        const data = await res.json();
-        setBoards(data);
-      }
-      catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchBoards();
+    fetch("http://127.0.0.1:8000/api/boards/", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setBoard(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
-  return (
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
-    <div>
-      <h1 className=" text-3xl font-bold text-center"> Boards</h1>
-      {boards.map((board) => (
-        <div key={board.id}>{board.title}</div>
+  return (
+    <div className="border-black rounded-2xl shadow-black shadow-2xl text-center">
+      {board.map((boards) => (
+      
+        <div key={boards.id}>
+          <h1 className="text-4xl font-head p-5 m-5 font-bold">
+            {boards.title}
+          </h1>
+
+          <p className="font-bold font-head">
+            {boards.owner}
+          </p>
+
+          <p className="font-semibold font-head">
+            {boards.created_at}
+          </p>
+        </div>
       ))}
     </div>
   );
-}
+};
 
 export default Card;

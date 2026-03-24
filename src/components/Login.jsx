@@ -31,7 +31,7 @@ function LoginPage() {
       localStorage.setItem("access_token", data.access);
       localStorage.setItem("refresh_token", data.refresh);
 
-      navigate("/hero");
+      navigate("/home");
     } catch (err) {
       setError(err.message || "Login failed");
     } finally {
